@@ -1,1 +1,1 @@
-# Clase de Java de Ingenieria de software |
+Clase de Java de Ingenieria de software |
