@@ -62,7 +62,29 @@ public class PersonasDAO implements IDAO {
     }
 
     @Override
-    public void insertar() {
+    public void insertar( Object obj ) {
+        try {
+            personaobj = (Personas) obj;
+            String ssql = "INSERT INTO personas "
+                + "(nombre, apellido, edad, telefono) "
+                + " VALUES"
+                + "(?, ?, ?, ?)";
+        
+            ps = con.prepareStatement(ssql);
+            ps.setString(1, personaobj.getNombre());
+            ps.setString(2, personaobj.getApellido());
+            ps.setInt(3, personaobj.getEdad());
+            ps.setString(4, personaobj.getTelefono());
+            ps.executeUpdate();
+            
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        
+        
+        
+        
         
     }
 

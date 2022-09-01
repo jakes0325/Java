@@ -7,6 +7,7 @@ package vista;
 
 import controlador.PersonasControl;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Personas;
 
@@ -15,7 +16,7 @@ import modelo.Personas;
  * @author Lab-II
  */
 public class FrmPersonas extends javax.swing.JFrame {
-
+    PersonasControl personasControl = new PersonasControl();
     /**
      * Creates new form FrmPersonas
      */
@@ -23,7 +24,12 @@ public class FrmPersonas extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        PersonasControl personasControl = new PersonasControl();
+        this.refresh();
+        
+        
+        
+    }
+    public void refresh(){
         ArrayList<Personas> lista = personasControl.listar();
         
         DefaultTableModel modelo = new DefaultTableModel();
@@ -59,9 +65,10 @@ public class FrmPersonas extends javax.swing.JFrame {
         
         tblPersonas.setModel(modelo);
         
-        
-        
-        
+        txtNombre.setText(" ");
+        txtapellido.setText(" ");
+        txtEdad.setText(" ");
+        txtTelefono.setText(" ");
         
         
     }
@@ -138,6 +145,11 @@ public class FrmPersonas extends javax.swing.JFrame {
         });
 
         btnGrabar.setText("Grabar");
+        btnGrabar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -214,6 +226,39 @@ public class FrmPersonas extends javax.swing.JFrame {
     private void txtEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEdadActionPerformed
+
+    private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
+        
+        
+        try {
+            
+            String nombre = txtNombre.getText();
+            String apellido = txtapellido.getText();
+            String edad = txtEdad.getText();
+            String telefono = txtTelefono.getText();
+        
+            Integer edadInt = Integer.parseInt(edad);
+        
+        
+            Personas persona = new Personas(null, nombre, apellido, edadInt, telefono);
+            
+            personasControl.insertar( persona );
+            
+            
+        } catch (NumberFormatException e) {
+  
+            JOptionPane.showMessageDialog(null, "Edad es obligatorio y numerico");
+            
+        }
+        this.refresh();
+        
+        
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnGrabarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -14,8 +14,8 @@ public class PersonasControl implements IDAO {
     }
 
     @Override
-    public void insertar() {
-        
+    public void insertar( Object obj ) {
+        new PersonasDAO().insertar(obj);
     }
 
     @Override
